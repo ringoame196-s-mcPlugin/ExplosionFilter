@@ -9,6 +9,7 @@ class Main : JavaPlugin() {
     override fun onEnable() {
         super.onEnable()
         server.pluginManager.registerEvents(Events(), plugin)
+
         val command = getCommand("explosionfilter")
         command!!.setExecutor(Command())
     }
