@@ -5,6 +5,15 @@ import com.github.ringoame196_s_mcPlugin.FilterGUIManager
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.EntityExplodeEvent
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryCloseEvent
+
+class Events : Listener {
+    @EventHandler
+    fun onEntityExplode(e: EntityExplodeEvent) {
+        ExplosionFilter.removeFilterBlock(e.blockList())
+    }
 
     @EventHandler
     fun onFilterGUIClick(e: InventoryClickEvent) {
