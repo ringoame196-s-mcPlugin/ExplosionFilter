@@ -11,6 +11,9 @@ class Command : CommandExecutor, TabCompleter {
     }
 
     override fun onTabComplete(commandSender: CommandSender, command: Command, label: String, args: Array<out String>): MutableList<String>? {
-        return null
+        return when (args.size) {
+            1 -> mutableListOf(CommandConst.OPEN_COMMAND)
+            else -> mutableListOf()
+        }
     }
 }

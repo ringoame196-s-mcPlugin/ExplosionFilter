@@ -41,17 +41,14 @@ configure<BukkitPluginDescription> {
     apiVersion = "1." + mcVersion.split(".")[1]
     author = "ringoame196_s_mcPlugin"
     website = "https://github.com/ringoame196-s-mcPlugin/ExplosionFilter"
-    /*
-    コマンド追加用
+
     commands {
-        register("test") {
-            description = "This is a test command!"
-            aliases = listOf("t")
-            permission = "testplugin.test"
-            usage = "Just run the command!"
+        register("explosionfilter") {
+            description = "ExplosionFilterコマンド"
+            permission = "op"
+            usage = "/explosionfilter <open>"
         }
     }
-    */
 }
 
 tasks.withType<ShadowJar> {
