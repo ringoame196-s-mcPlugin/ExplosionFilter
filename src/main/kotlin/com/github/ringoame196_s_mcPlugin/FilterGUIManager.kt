@@ -22,8 +22,8 @@ object FilterGUIManager {
         }
     }
 
-    fun getPage(player: Player) : Int {
-        return playerPageMap[player.uniqueId] ?:0
+    fun getPage(player: Player): Int {
+        return playerPageMap[player.uniqueId] ?: 0
     }
 
     fun nextPage(player: Player): Int {
@@ -32,7 +32,7 @@ object FilterGUIManager {
         return page
     }
 
-    fun setPage(player: Player,page: Int) {
+    fun setPage(player: Player, page: Int) {
         playerPageMap[player.uniqueId] = page
     }
 
