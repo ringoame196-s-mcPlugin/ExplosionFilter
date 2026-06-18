@@ -4,7 +4,15 @@ import org.bukkit.Material
 import org.bukkit.block.Block
 
 object ExplosionFilter {
-    private val filterBlockList = mutableSetOf(Material.GLASS)
+    private val filterBlockList = mutableSetOf<Material>()
+
+    fun loadFilterBlockList() {
+        filterBlockList.addAll(
+            ConfigManager.getFilterBlocks().mapNotNull {
+                Material.getMaterial(it)
+            }
+        )
+    }
 
     // 爆発から保護するブロックを破壊対象リストから除外
     fun removeFilterBlock(blockList: MutableList<Block>) {
@@ -20,5 +28,11 @@ object ExplosionFilter {
     fun save(newFilterBlockList: Set<Material>) {
         filterBlockList.clear()
         filterBlockList.addAll(newFilterBlockList)
+
+        ConfigManager.saveFilterBlocks(
+            newFilterBlockList.map {
+                it.name
+            }
+        )
     }
 }
