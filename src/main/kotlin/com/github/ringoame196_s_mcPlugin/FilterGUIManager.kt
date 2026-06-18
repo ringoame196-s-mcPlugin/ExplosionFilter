@@ -14,7 +14,7 @@ object FilterGUIManager {
     private val guiName = "${ChatColor.DARK_BLUE}フィルターブロック"
     private const val GUI_SIZE = 54
     private const val PAGE_SIZE = GUI_SIZE - 1
-    private val selectNumberMap = mutableMapOf<UUID, Int>()
+    private val playerPageMap = mutableMapOf<UUID, Int>()
 
     private val nextItem = ItemStack(Material.ARROW).apply {
         itemMeta = itemMeta.apply {
@@ -22,30 +22,41 @@ object FilterGUIManager {
         }
     }
 
+    fun getPage(player: Player) : Int {
+        return playerPageMap[player.uniqueId] ?:0
+    }
+
+    fun nextPage(player: Player): Int {
+        val page = getPage(player) + 1
+        setPage(player, page)
+        return page
+    }
+
+    fun setPage(player: Player,page: Int) {
+        playerPageMap[player.uniqueId] = page
+    }
+
+    fun removePlayer(player: Player) {
+        playerPageMap.remove(player.uniqueId)
+    }
+
     fun open(player: Player) {
-        val inventory = makeInventory()
-        selectNumberMap[player.uniqueId] = 0 // プレイヤーが現在開いているページを持っておく
+        setPage(player, 0)
+
+        val inventory = Bukkit.createInventory(null, GUI_SIZE, guiName)
+        applyFilterBlockList(inventory, 0)
         player.openInventory(inventory)
     }
 
-    private fun makeInventory(): Inventory {
-        val inventory = Bukkit.createInventory(null, GUI_SIZE, guiName)
-        applicationFilterBlockList(inventory, 0)
-        return inventory
+    fun updatePage(inventory: Inventory, player: Player) {
+        val page = nextPage(player)
+        applyFilterBlockList(inventory, page)
     }
 
-    fun nextApplicationFilterBlockList(inventory: Inventory, player: Player) {
-        // プレイヤーが現在開いているページを更新
-        val page = selectNumberMap.getOrDefault(player.uniqueId, 0) + 1
-        selectNumberMap[player.uniqueId] = page
-
-        applicationFilterBlockList(inventory, page)
-    }
-
-    private fun applicationFilterBlockList(inventory: Inventory, selectNumber: Int) {
+    private fun applyFilterBlockList(inventory: Inventory, page: Int) {
         inventory.clear()
         val filterList = ExplosionFilter.getFilterBlockList()
-        val start = selectNumber * PAGE_SIZE
+        val start = page * PAGE_SIZE
 
         if (filterList.isNotEmpty()) {
             filterList
@@ -68,11 +79,11 @@ object FilterGUIManager {
 
     // GUIの内容をフィルターブロック設定として保存
     fun saveFilterBlockList(inventory: Inventory) {
-        val newFilterBlockList = mutableSetOf<Material>()
-
-        for (item in inventory.filterNotNull().filter { !isNextItem(it) }) {
-            newFilterBlockList.add(item.type)
-        }
+        val newFilterBlockList = inventory
+            .filterNotNull()
+            .filterNot(::isNextItem)
+            .map(ItemStack::getType)
+            .toSet()
         ExplosionFilter.save(newFilterBlockList)
     }
 }

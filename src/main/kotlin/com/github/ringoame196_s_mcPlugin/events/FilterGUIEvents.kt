@@ -19,7 +19,7 @@ class FilterGUIEvents : Listener {
         // nextアイテムで次のページへ移動
         if (FilterGUIManager.isNextItem(item)) {
             e.isCancelled = true
-            FilterGUIManager.nextApplicationFilterBlockList(inventory, player)
+            FilterGUIManager.updatePage(inventory, player)
         }
     }
 
@@ -27,7 +27,9 @@ class FilterGUIEvents : Listener {
     fun onFilterGUIClose(e: InventoryCloseEvent) {
         val gui = e.view
         val inventory = e.inventory
+        val player = e.player as? Player?:return
         if (!FilterGUIManager.isFilterGUI(gui)) return
+        FilterGUIManager.removePlayer(player)
         FilterGUIManager.saveFilterBlockList(inventory) // GUIの内容をフィルターブロック設定として保存
     }
 }
