@@ -9,6 +9,9 @@ class Main : JavaPlugin() {
     private val plugin = this
     override fun onEnable() {
         super.onEnable()
+
+        saveDefaultConfig()
+
         server.pluginManager.registerEvents(FilterGUIEvents(), plugin)
         server.pluginManager.registerEvents(ExplosionEvents(), plugin)
 
