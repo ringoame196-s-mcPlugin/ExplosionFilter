@@ -10,7 +10,8 @@ class Main : JavaPlugin() {
     override fun onEnable() {
         super.onEnable()
 
-        saveDefaultConfig()
+        ConfigManager.plugin = plugin
+        ExplosionFilter.loadFilterBlockList()
 
         server.pluginManager.registerEvents(FilterGUIEvents(), plugin)
         server.pluginManager.registerEvents(ExplosionEvents(), plugin)
