@@ -1,6 +1,6 @@
 package com.github.ringoame196_s_mcPlugin.commands
 
-import com.github.ringoame196_s_mcPlugin.FilterGUIManager
+import com.github.ringoame196_s_mcPlugin.gui.FilterGUIManager
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
