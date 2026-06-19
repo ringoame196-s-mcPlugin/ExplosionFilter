@@ -1,5 +1,6 @@
-package com.github.ringoame196_s_mcPlugin
+package com.github.ringoame196_s_mcPlugin.filter
 
+import com.github.ringoame196_s_mcPlugin.config.ConfigManager
 import org.bukkit.Material
 import org.bukkit.block.Block
 
@@ -21,18 +22,14 @@ object ExplosionFilter {
         }
     }
 
-    fun getFilterBlockList(): Set<Material> {
-        return filterBlockList
-    }
+    fun getFilterBlockList(): Set<Material> = filterBlockList.toSet()
 
-    fun save(newFilterBlockList: Set<Material>) {
+    fun save(newFilterBlockList: Collection<Material>) {
         filterBlockList.clear()
         filterBlockList.addAll(newFilterBlockList)
 
         ConfigManager.saveFilterBlocks(
-            newFilterBlockList.map {
-                it.name
-            }
+            newFilterBlockList.map { it.name }
         )
     }
 }

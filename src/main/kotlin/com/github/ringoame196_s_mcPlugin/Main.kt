@@ -1,8 +1,10 @@
 package com.github.ringoame196_s_mcPlugin
 
 import com.github.ringoame196_s_mcPlugin.commands.Command
+import com.github.ringoame196_s_mcPlugin.config.ConfigManager
 import com.github.ringoame196_s_mcPlugin.events.ExplosionEvents
 import com.github.ringoame196_s_mcPlugin.events.FilterGUIEvents
+import com.github.ringoame196_s_mcPlugin.filter.ExplosionFilter
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
