@@ -45,8 +45,15 @@ configure<BukkitPluginDescription> {
     commands {
         register("explosionfilter") {
             description = "ExplosionFilterコマンド"
-            permission = "op"
+            permission = "explosionFilter.admin"
             usage = "/explosionfilter <open>"
+        }
+    }
+
+    permissions {
+        register("explosionFilter.admin") {
+            description = "ExplosionFilter-管理者"
+            default = BukkitPluginDescription.Permission.Default.OP
         }
     }
 }
