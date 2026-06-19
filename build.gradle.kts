@@ -46,6 +46,7 @@ configure<BukkitPluginDescription> {
         register("explosionfilter") {
             description = "ExplosionFilterコマンド"
             permission = "explosionFilter.admin"
+            aliases = listOf("ef")
             usage = "/explosionfilter <open>"
         }
     }
