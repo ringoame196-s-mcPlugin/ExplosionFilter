@@ -1,7 +1,9 @@
 package com.github.ringoame196_s_mcPlugin.events
 
+import com.github.ringoame196_s_mcPlugin.filter.ExplosionFilter
 import com.github.ringoame196_s_mcPlugin.gui.FilterGUIManager
 import com.github.ringoame196_s_mcPlugin.gui.FilterGUIPageManager
+import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -32,5 +34,11 @@ class FilterGUIEvents : Listener {
         if (!FilterGUIManager.isFilterGUI(gui)) return
         FilterGUIPageManager.removePlayer(player)
         FilterGUIManager.saveFilterBlockList(inventory) // GUIの内容をフィルターブロック設定として保存
+
+        val count = ExplosionFilter.getFilterBlockList().size
+
+        player.sendMessage(
+            "${ChatColor.GOLD}${count}個のブロックが登録されました"
+        )
     }
 }
